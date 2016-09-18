@@ -114,6 +114,8 @@ class irSharpMeasure
       // Измеряем значение с датчика в милливольтах.
       //Значение, которое было считано с аналогового порта умножается на переменную voltConst
       //И получается значение в вольтах, которое есть на аналоговом пине
+      analogRead(irPin);
+      analogRead(irPin);
       double volts = analogRead(irPin) * voltConst;
 
       //Serial.println(volts);
@@ -476,9 +478,9 @@ void back() {
 
 void val() {
 
-  int left = 25;
+  int left = 30;
   int right = 45;
-  int center = 35;
+  int center = 37;
   int b = 5;
 
   while (1) {
@@ -490,7 +492,7 @@ void val() {
       delay(150);
     } else if (lFront > right) {
       go_LeftFull(255, 255);
-    } else if (lFront < left) {
+    } else if (lFront < left && rFront < 70) {
       go_RightFull(255, 255);
     } else {
       //      go_Forward(255, 255);

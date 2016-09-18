@@ -463,11 +463,11 @@ void setup() {
 int k = 0;
 void back() {
   //unstable situations
-  if (lFront <= 10 || rFront <= 11) {
+  if (rFront <= 11) {
     k++;
     if (k > 10) {
       go_Backward(255, 255);
-      delay(500);
+      delay(400);
       k = 0;
     }
   }
@@ -476,17 +476,35 @@ void back() {
 
 void val() {
 
+  int left = 25;
+  int right = 45;
+  int center = 35;
+  int b = 5;
+
   while (1) {
     irMeasure();
-    if (lFront > 45) {
+    if (lFront > 70) {
       go_LeftFull(255, 255);
-    }else if (lFront < 20) {
+      delay(250);
+      go_Forward(255, 255);
+      delay(150);
+    } else if (lFront > right) {
+      go_LeftFull(255, 255);
+    } else if (lFront < left) {
       go_RightFull(255, 255);
     } else {
-      go_Forward(255, 255);
+      //      go_Forward(255, 255);
+
+      if (lFront <= center - b)
+        go_Forward(255, map(lFront, left, center - b, 255, 80));
+      else if (lFront >= center + b)
+        go_Forward(map(lFront, center + b, right, 255, 80), 255);
+      else {
+        go_Forward(255, 255);
+      }
     }
     back();
-    delay(100);
+    delay(30);
   }
 
 }
@@ -500,9 +518,9 @@ void dim() {
     irMeasure();
     sr = 255;
     sl = map(lFront, 10, 80, 150 , 0);
-    
+
     go_Forward(sl, sr);
-    
+
     back();
     delay(10);
   }
@@ -514,7 +532,7 @@ void dim() {
 int a = 0;
 void loop() {
   val();
-//  dim();
+  //  dim();
   while (1) {
     irMeasure(); // updare ir
     //a = rFront - lFront;

@@ -23,19 +23,19 @@
 */
 
 /*В роботе используются пины (для Arduino Uno-подобной платы)
- * Мотордрайвер использует пины:
- * D2, D3, D5, D8, D10, D11
- * Сервопривод использует пины:
- * D9
- * Ультразвуковой датчик использует пины:
- * D4, D7
- * Свободные цифровые пины:
- * D0, D1, D6, D12, D13
- * Аналоговые ИК-датчики используют пины:
- * A0, A1
- * Свободные аналоговые пины:
- * A2, A3, A4, A5
- */
+   Мотордрайвер использует пины:
+   D2, D3, D5, D8, D10, D11
+   Сервопривод использует пины:
+   D9
+   Ультразвуковой датчик использует пины:
+   D4, D7
+   Свободные цифровые пины:
+   D0, D1, D6, D12, D13
+   Аналоговые ИК-датчики используют пины:
+   A0, A1
+   Свободные аналоговые пины:
+   A2, A3, A4, A5
+*/
 
 //Самодельный класс Servo, чтобы не использовать стандартную библиотеку Servo
 //Т.к. она мешает управлению пинами мотордрайвера L298N
@@ -119,7 +119,7 @@ class irSharpMeasure
       //Serial.println(volts);
       //Экспериментальные значения в вольтах для определенного расстояния
       //Определены экспериментальным путем и с использованием даташита к ИК-датчику Sharp (10-80cm)
-    double val[40] = { 2.73, 2.34, 1.99, 1.76, 1.57, 1.42, 1.29, 1.20, 1.07, 1.00, 0.94, 0.88, 0.82, 0.79, 0.74, 0.71, 0.68, 0.65, 0.63, 0.61, 0.58, 0.55, 0.53, 0.50, 0.51, 0.49, 0.48, 0.47, 0.45, 0.44, 0.42, 0.41, 0.40, 0.39, 0.38, 0.37, 0.36, 0.33, 0.28, 0.26};   
+      double val[40] = { 2.73, 2.34, 1.99, 1.76, 1.57, 1.42, 1.29, 1.20, 1.07, 1.00, 0.94, 0.88, 0.82, 0.79, 0.74, 0.71, 0.68, 0.65, 0.63, 0.61, 0.58, 0.55, 0.53, 0.50, 0.51, 0.49, 0.48, 0.47, 0.45, 0.44, 0.42, 0.41, 0.40, 0.39, 0.38, 0.37, 0.36, 0.33, 0.28, 0.26};
       int cm[40] = {8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80, 90, 100, 110};
       //Алгоритм по сопоставлению значения в вольтах расстоянию
       for (int i = 0; i < 40; i++)
@@ -141,7 +141,7 @@ class irSharpMeasure
       //Если volts больше определенного порогоа, то считаем, что расстояние меньше 10 см
       if (volts > 3.00)
       {
-        distance = 6* angleFront;
+        distance = 6 * angleFront;
       }
       //Возвращаем значение distance
       return distance;
@@ -198,7 +198,7 @@ void irFrontGoBack()
     if (usRangeLeft < usRangeRight)
     {
       //То поворачиваем вправо
-      go_RightFull(200,100);
+      go_RightFull(200, 100);
       delay(500);
       go_Stop();
       //Поворачиваем УЗ влево
@@ -209,39 +209,39 @@ void irFrontGoBack()
       while ((rFront < frontLow) && (lFront < frontLow))
       {
         irMeasure();
-        go_Backward(220,220);
+        go_Backward(220, 220);
       }
       //Едем назад, чтобы и с переднего УЗ-датчика, расстояние было больше необходимого
       usMeasure();
       while ( usRange < usLow)
       {
         usMeasure();
-        go_Backward(220,220);
+        go_Backward(220, 220);
       }
       //Поворачиваем робота вправо
-      go_RightFull(200,100);
+      go_RightFull(200, 100);
       delay(500);
       go_Stop();
     }
     //Здесь как и выше описано, только все операции наоборот.
     if (usRangeRight < usRangeLeft)
     {
-      go_LeftFull(100,200);
+      go_LeftFull(100, 200);
       delay(500);
       go_Stop();
       radar.write(radarRight);
       while ((rFront < frontLow) && (lFront < frontLow))
       {
         irMeasure();
-        go_Backward(220,220);
+        go_Backward(220, 220);
       }
       usMeasure();
       while (usRange < usLow)
       {
         usMeasure();
-        go_Backward(220,220);
+        go_Backward(220, 220);
       }
-      go_LeftFull(100,200);
+      go_LeftFull(100, 200);
       delay(500);
       go_Stop();
     }
@@ -253,13 +253,13 @@ void irFrontGoBack()
       while ((rFront < frontLow) && (lFront < frontLow))
       {
         irMeasure();
-        go_Backward(220,220);
+        go_Backward(220, 220);
       }
       usMeasure();
       while ((usRange < usLow))
       {
         usMeasure();
-        go_Backward(220,220);
+        go_Backward(220, 220);
       }
     }
     radar.write(radarFront);
@@ -268,7 +268,7 @@ void irFrontGoBack()
   if (rFront < lFront)
   {
     //Поворачиваем робота влево
-    go_LeftFull(100,200);
+    go_LeftFull(100, 200);
     delay(500);
     go_Stop();
     //Едем назад до тех пор пока расстояния с ИК-датчиков не будут удовлетворять условиям
@@ -276,17 +276,17 @@ void irFrontGoBack()
     while ((rFront < frontLow) && (lFront < frontLow))
     {
       irMeasure();
-      go_Backward(220,220);
+      go_Backward(220, 220);
     }
     usMeasure();
     //Едем назад, чтобы и с переднего УЗ-датчика, расстояние было больше необходимого
     while ((usRange < usLow))
     {
       usMeasure();
-      go_Backward(220,220);
+      go_Backward(220, 220);
     }
     //Поворачиваем робота влево
-    go_LeftFull(100,200);
+    go_LeftFull(100, 200);
     delay(500);
     go_Stop();
   }
@@ -294,25 +294,25 @@ void irFrontGoBack()
   if (lFront < rFront)
   {
     //Поворачиваем робота вправо
-    go_RightFull(200,100);
+    go_RightFull(200, 100);
     delay(500);
     go_Stop();
     //Едем назад до тех пор пока расстояния с ИК-датчиков не будут удовлетворять условиям
     //Можешь настраивать как тебе необходимо.
     while ((rFront < frontLow) && (lFront < frontLow))
     {
-      go_Backward(220,220);
+      go_Backward(220, 220);
       irMeasure();
     }
     usMeasure();
     //Едем назад, чтобы и с переднего УЗ-датчика, расстояние было больше необходимого
     while ((usRange < usLow))
     {
-     usMeasure();
-      go_Backward(220,220);
+      usMeasure();
+      go_Backward(220, 220);
     }
     //Поворачиваем робота вправо
-    go_RightFull(200,100);
+    go_RightFull(200, 100);
     //Задержка обуславливает длительность поворота
     delay(500);
     //Остановка
@@ -336,7 +336,7 @@ void usRadar()
 //Функция для мотордрайвера по движению робота прямо
 //A-левый
 //B-правый
-int go_Forward(int a,int b)
+int go_Forward(int a, int b)
 {
   //Левый мотор
   digitalWrite(in1, LOW);
@@ -354,7 +354,7 @@ int go_Forward(int a,int b)
 //Функция, которая поворачивает влево
 //Правые колеса едут на вперед
 //Левые колеса едут на назад
-int go_LeftFull(int a,int b)
+int go_LeftFull(int a, int b)
 {
   //Левый мотор
   digitalWrite(in1, HIGH);
@@ -384,7 +384,7 @@ void go_LeftHalf(int a, int b)
 //Функция, которая поворачивает вправо
 //Левые колеса едут вперед
 //Правые колеса едут назад
-void go_RightFull(int a,int b)
+void go_RightFull(int a, int b)
 {
   //Левый мотор
   digitalWrite(in1, LOW);
@@ -398,7 +398,7 @@ void go_RightFull(int a,int b)
 }
 // Функция легкого поворота вправо
 //Просто замедляется скорость вращения правых колес
-void go_RightHalf(int a,int b)
+void go_RightHalf(int a, int b)
 {
   //Левый мотор
   digitalWrite(in1, LOW);
@@ -460,9 +460,80 @@ void setup() {
   delay(1000);
 }
 
+int k = 0;
+void back() {
+  //unstable situations
+  if (lFront <= 10 || rFront <= 11) {
+    k++;
+    if (k > 10) {
+      go_Backward(255, 255);
+      delay(500);
+      k = 0;
+    }
+  }
+}
+
+
+void val() {
+
+  while (1) {
+    irMeasure();
+    if (lFront > 45) {
+      go_LeftFull(255, 255);
+    }else if (lFront < 20) {
+      go_RightFull(255, 255);
+    } else {
+      go_Forward(255, 255);
+    }
+    back();
+    delay(100);
+  }
+
+}
+
+
+int sl = 0;
+int sr = 0;
+void dim() {
+
+  while (1) {
+    irMeasure();
+    sr = 255;
+    sl = map(lFront, 10, 80, 150 , 0);
+    
+    go_Forward(sl, sr);
+    
+    back();
+    delay(10);
+  }
+
+}
+
 //Главный бесконечный цикл, в котором находится управляющие операторы
 //В роботе четыре колеса без резиновых колец
+int a = 0;
 void loop() {
+  val();
+//  dim();
+  while (1) {
+    irMeasure(); // updare ir
+    //a = rFront - lFront;
+    go_Forward(255, 255);
+    if ((rFront + lFront) < 120 ) {
+      if ( rFront > lFront ) {
+        go_Forward(255, 50);
+      }
+      else {
+        go_Forward(50, 255);
+      }
+    }
+    else {
+      go_Forward(200, 255);
+    }
+
+
+    back();
+  }
   //Вызов функции по измерению расстояний с ИК-датчиков
   //Необходимо всегда ее вызывать, чтобы обновлялись значения
   irMeasure();
@@ -472,10 +543,11 @@ void loop() {
   //Принятие решения на основе показаний с ИК-датчиков
   //Если с левого и правого ИК-датчика расстояние больше определенного значения
   //То робот едет прямо
+
   if ((lFront > 50) && (rFront > 50))
   {
     //  digitalWrite(13,HIGH);
-    go_Forward(220,220);
+    go_Forward(220, 220);
   }
   //В другом случае
   else
@@ -494,13 +566,13 @@ void loop() {
       if ((rFront <= lFront))
       {
         //То робот поворачивает влево
-        go_LeftFull(100,180);
+        go_LeftFull(100, 180);
       }
       //Если расстояние с левого ИК-датчика меньше чем с правого ИК-датчика
       if (lFront < rFront)
       {
         //То робот поворачивает вправо
-        go_RightFull(180,100);
+        go_RightFull(180, 100);
       }
     }
   }
